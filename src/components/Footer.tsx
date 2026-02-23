@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import type { Language } from '../data/translations';
 import { translations } from '../data/translations';
 import { ftT } from '../data/footprintTranslations';
+import NewsletterSignup from './NewsletterSignup';
 
 interface FooterProps {
   lang: Language;
@@ -174,8 +175,11 @@ export default function Footer({ lang }: FooterProps) {
           )}
         </div>
 
+        {/* Newsletter signup */}
+        <NewsletterSignup lang={lang} variant="inline" />
+
         {/* Credits */}
-        <div className="mt-8 pt-6 border-t border-gray-200 dark:border-slate-700">
+        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700">
           <p className="text-sm text-gray-600 dark:text-gray-300">
             {lang === 'el'
               ? 'Φτιαγμένο με ❤️ για μια πιο πράσινη Ελλάδα από τον '
@@ -191,7 +195,7 @@ export default function Footer({ lang }: FooterProps) {
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
             {lang === 'el'
-              ? 'Για απορίες/επισημάνσεις, στείλτε email στο '
+              ? 'Για απορίες/επισημάνσεις, μπορείτε να στείλετε email στο '
               : 'For questions/feedback, email '}
             <a
               href="mailto:michail.rizos@gmail.com"

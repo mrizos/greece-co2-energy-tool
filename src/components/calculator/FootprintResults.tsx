@@ -22,6 +22,7 @@ import {
 import type { Language } from '../../data/translations';
 import { ftT } from '../../data/footprintTranslations';
 import type { FootprintResult, Scenario, Recommendation } from '../../data/footprintEngine';
+import NewsletterSignup from '../NewsletterSignup';
 
 const CATEGORY_COLORS = ['#0D5C63', '#C2714F', '#6B8F3C', '#8B5CF6', '#6B7280'];
 
@@ -331,6 +332,15 @@ export default function FootprintResults({
           </div>
         </motion.div>
       )}
+
+      {/* Newsletter signup */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.45 }}
+      >
+        <NewsletterSignup lang={lang} variant="card" />
+      </motion.div>
 
       {/* Email report */}
       <motion.div
