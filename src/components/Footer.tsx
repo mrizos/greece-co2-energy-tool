@@ -141,6 +141,13 @@ export default function Footer({ lang }: FooterProps) {
 
           {activeTab === 'changelog' && (
             <div className="text-sm text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed">
+              <div className="border-l-2 border-navy pl-4 py-1">
+                <p className="font-medium text-gray-900 dark:text-white">v2.1 — {lang === 'el' ? 'Φεβρουάριος 2026' : 'February 2026'}</p>
+                <ul className="mt-1 space-y-0.5 text-gray-500 dark:text-gray-400">
+                  <li>• {lang === 'el' ? 'Προσθήκη φωτοβολταϊκών (ΦΒ) με αρνητικές εκπομπές (offset) — 1,300–1,800 kWh/kW/έτος ανά περιοχή' : 'Added solar PV panels with negative emissions (offset) — 1,300–1,800 kWh/kW/year by region'}</li>
+                  <li>• {lang === 'el' ? 'Προσθήκη κλασικής/κεραμικής ηλεκτρικής εστίας (σύγκριση αερίου / κεραμικής / επαγωγικής)' : 'Added classic/ceramic electric hob (gas / ceramic / induction comparison)'}</li>
+                </ul>
+              </div>
               <div className="border-l-2 border-terracotta pl-4 py-1">
                 <p className="font-medium text-gray-900 dark:text-white">v2.0 — {lang === 'el' ? 'Φεβρουάριος 2025' : 'February 2025'}</p>
                 <ul className="mt-1 space-y-0.5 text-gray-500 dark:text-gray-400">
