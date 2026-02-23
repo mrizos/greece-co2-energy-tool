@@ -6,19 +6,9 @@ interface NewsletterSignupProps {
   variant: 'card' | 'inline';
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// TODO (Michail): Replace the placeholder below with your real Brevo form ID.
-//
-// Steps:
-//   1. Sign up at https://www.brevo.com (free)
-//   2. Contacts → Lists → "New List" → name: "CarbonTrace Newsletter"
-//   3. Email Campaigns → Subscription Forms → "Create a form" → Embedded
-//   4. Copy the form ID from the generated URL (looks like: MUI-XXXX-XXXX-...)
-//   5. Paste it below, replacing REPLACE_WITH_YOUR_BREVO_FORM_ID
-//
-// The form ID is public (not a secret) — safe to commit to GitHub.
-// ─────────────────────────────────────────────────────────────────────────────
-const BREVO_FORM_ID = 'REPLACE_WITH_YOUR_BREVO_FORM_ID';
+// Brevo embedded form URL — public, safe to commit (not a secret key).
+// To update: Marketing → Forms → Sign-up forms → Edit → copy iframe src URL.
+const BREVO_FORM_URL = 'https://4f23432e.sibforms.com/serve/MUIFABHd6HKhx_yO2sgiQPxxPmDEUJzcHDJvPaW-Odjbjc9tbjbuPNGhwyABtvWnHjV7bPGm-hbrSypqV78qCqMD6wWuOkziTN66WtSLPkpwIAdNxiHAB2Emm8UxVDqFJg3WQzPLCTDmQR7Vld3_rcXLd3KVS_8juAiji4yeAy3mHfJo5geJ7B2dyTiioxtNOQrv0WNvvsqA5UU6lQ==';
 
 const T = {
   title:       { el: '📬 Μείνε ενημερωμένος', en: '📬 Stay informed' },
@@ -30,7 +20,6 @@ const T = {
   error:       { el: '❌ Κάτι πήγε στραβά. Δοκίμασε ξανά ή επικοινώνησε μαζί μου.', en: '❌ Something went wrong. Please try again or contact me.' },
   gdpr:        { el: 'Συμφωνώ να λαμβάνω το μηνιαίο newsletter. Μπορώ να διαγραφώ οποτεδήποτε.', en: 'I agree to receive the monthly newsletter. I can unsubscribe at any time.' },
   noSpam:      { el: 'Χωρίς spam, χωρίς διαφημίσεις.', en: 'No spam, no ads.' },
-  notSetup:    { el: '⚙️ Newsletter: σύντομα διαθέσιμο!', en: '⚙️ Newsletter: coming soon!' },
 };
 
 export default function NewsletterSignup({ lang, variant }: NewsletterSignupProps) {
@@ -38,30 +27,26 @@ export default function NewsletterSignup({ lang, variant }: NewsletterSignupProp
   const [gdpr, setGdpr]       = useState(false);
   const [status, setStatus]   = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const isConfigured = BREVO_FORM_ID !== 'REPLACE_WITH_YOUR_BREVO_FORM_ID';
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !gdpr) return;
-    if (!isConfigured) {
-      // Dev mode: just show success so UI can be tested
-      setStatus('success');
-      return;
-    }
 
     setStatus('loading');
     try {
       const body = new URLSearchParams({
         EMAIL: email,
-        email_address_check: '',
+        email_address_check: '',  // honeypot — must be empty
         locale: lang,
       });
-      const res = await fetch(`https://sibforms.com/serve/${BREVO_FORM_ID}`, {
+      // Brevo sibforms accepts cross-origin POST — no CORS issues
+      await fetch(BREVO_FORM_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString(),
+        mode: 'no-cors', // sibforms doesn't return CORS headers, so we use no-cors
       });
-      setStatus(res.ok ? 'success' : 'error');
+      // With no-cors we can't read the response status, so we optimistically show success
+      setStatus('success');
     } catch {
       setStatus('error');
     }
@@ -86,12 +71,6 @@ export default function NewsletterSignup({ lang, variant }: NewsletterSignupProp
           {T.desc[lang]}{' '}
           <span className="text-gray-400 dark:text-gray-500">{T.noSpam[lang]}</span>
         </p>
-
-        {!isConfigured && (
-          <p className="text-xs text-amber-600 dark:text-amber-400 mb-2">
-            {T.notSetup[lang]}
-          </p>
-        )}
 
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="flex gap-2">
