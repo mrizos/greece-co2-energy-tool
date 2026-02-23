@@ -45,7 +45,7 @@ function AppContent() {
 
 export default function App() {
   return (
-    <BrowserRouter basename="/greece-co2-energy-tool">
+    <BrowserRouter>
       <AppContent />
     </BrowserRouter>
   );
