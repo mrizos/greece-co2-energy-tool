@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import type { Language } from '../data/translations';
 import { ftT } from '../data/footprintTranslations';
 import { CONSTANTS } from '../data/constants';
+import NewsletterSignup from '../components/NewsletterSignup';
 
 interface LandingPageProps {
   lang: Language;
@@ -135,6 +136,16 @@ export default function LandingPage({ lang }: LandingPageProps) {
             </div>
           </div>
         </div>
+
+        {/* Newsletter signup */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.1 }}
+          className="max-w-sm mx-auto w-full"
+        >
+          <NewsletterSignup lang={lang} variant="card" />
+        </motion.div>
       </motion.div>
     </div>
   );

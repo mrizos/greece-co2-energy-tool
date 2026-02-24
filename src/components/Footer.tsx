@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import type { Language } from '../data/translations';
 import { translations } from '../data/translations';
 import { ftT } from '../data/footprintTranslations';
-import NewsletterSignup from './NewsletterSignup';
 
 interface FooterProps {
   lang: Language;
@@ -174,9 +173,6 @@ export default function Footer({ lang }: FooterProps) {
             </div>
           )}
         </div>
-
-        {/* Newsletter signup */}
-        <NewsletterSignup lang={lang} variant="inline" />
 
         {/* Credits */}
         <div className="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700">
