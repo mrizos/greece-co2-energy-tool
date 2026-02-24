@@ -137,8 +137,8 @@ export const ftT = {
     en: '256 g CO₂/kWh — 52% renewables (2024)',
   },
   factPerCapita: {
-    el: '~7 τόνοι CO₂/κάτοικο/χρόνο',
-    en: '~7 tonnes CO₂/capita/year',
+    el: '~6.1 τόνοι CO₂/κάτοικο/χρόνο',
+    en: '~6.1 tonnes CO₂/capita/year',
   },
   factParis: {
     el: 'Στόχος Παρισιού: <2.3 t CO₂/κάτοικο',

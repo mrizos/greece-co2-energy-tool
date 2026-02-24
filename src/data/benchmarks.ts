@@ -9,8 +9,8 @@ export const benchmarks: Benchmark[] = [
   {
     id: 'greek_annual',
     name: { el: 'Μέσος Έλληνας/χρόνο', en: 'Avg Greek person/year' },
-    energyKwh: 22000,
-    co2eKg: 7000,
+    energyKwh: 19200,
+    co2eKg: 6100,
   },
   {
     id: 'eu_annual',
@@ -39,8 +39,8 @@ export const benchmarks: Benchmark[] = [
   {
     id: 'greek_daily',
     name: { el: 'Ελληνικός ημερήσιος μ.ο.', en: 'Greek daily avg per person' },
-    energyKwh: 60,
-    co2eKg: 19,
+    energyKwh: 53,
+    co2eKg: 16.7,
   },
 ];
 

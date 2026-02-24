@@ -31,6 +31,7 @@ export default function Header({
     { to: '/', label: { el: 'Αρχική', en: 'Home' } },
     { to: '/compare', label: { el: 'Σύγκριση', en: 'Compare' } },
     { to: '/calculator', label: { el: 'Αποτύπωμα', en: 'Footprint' } },
+    { to: '/analyses', label: { el: 'Αναλύσεις', en: 'Analyses' } },
   ];
 
   return (

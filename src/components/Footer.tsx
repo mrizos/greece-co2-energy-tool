@@ -141,6 +141,16 @@ export default function Footer({ lang }: FooterProps) {
 
           {activeTab === 'changelog' && (
             <div className="text-sm text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed">
+              <div className="border-l-2 border-terracotta pl-4 py-1">
+                <p className="font-medium text-gray-900 dark:text-white">v2.2 — {lang === 'el' ? 'Φεβρουάριος 2026' : 'February 2026'}</p>
+                <ul className="mt-1 space-y-0.5 text-gray-500 dark:text-gray-400">
+                  <li>• {lang === 'el' ? 'Νέες δραστηριότητες: Ψησταριά (κάρβουνο & LPG), Air fryer, Βραστήρας, Espresso κάψουλα' : 'New activities: BBQ (charcoal & LPG), Air fryer, Kettle, Espresso capsule'}</li>
+                  <li>• {lang === 'el' ? 'Νέες δραστηριότητες: Ψύκτης νερού (μπουκάλα 19L & φίλτρο ΕΥΔΑΠ)' : 'New activities: Water cooler (19L bottled & EYDAP filtered)'}</li>
+                  <li>• {lang === 'el' ? 'Ενημέρωση κατά κεφαλήν εκπομπών: 7t → 6.1t (Climate Change Tracker 2023)' : 'Updated per-capita emissions: 7t → 6.1t (Climate Change Tracker 2023)'}</li>
+                  <li>• {lang === 'el' ? 'Νέα σελίδα Αναλύσεις & Insights' : 'New Analyses & Insights page'}</li>
+                  <li>• {lang === 'el' ? 'Newsletter signup redesign (dark card, name field)' : 'Newsletter signup redesign (dark card, name field)'}</li>
+                </ul>
+              </div>
               <div className="border-l-2 border-navy pl-4 py-1">
                 <p className="font-medium text-gray-900 dark:text-white">v2.1 — {lang === 'el' ? 'Φεβρουάριος 2026' : 'February 2026'}</p>
                 <ul className="mt-1 space-y-0.5 text-gray-500 dark:text-gray-400">

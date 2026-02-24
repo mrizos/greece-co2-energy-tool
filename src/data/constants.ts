@@ -17,7 +17,7 @@ export const CONSTANTS = {
   LPG_CO2_G_PER_L: 1510,
 
   // Annual benchmarks
-  GREEK_ANNUAL_CO2E_KG: 7000,
+  GREEK_ANNUAL_CO2E_KG: 6100, // Climate Change Tracker 2023: 61 Mt total / ~10M population
   EU_ANNUAL_CO2E_KG: 8000,
   GLOBAL_ANNUAL_CO2E_KG: 4700,
   PARIS_BUDGET_KG: 2300,

@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import LandingPage from './pages/LandingPage';
 import ComparePage from './pages/ComparePage';
 import CalculatorPage from './pages/CalculatorPage';
+import AnalysesPage from './pages/AnalysesPage';
 import { useMetricView } from './hooks/useMetricView';
 import { useTheme } from './hooks/useTheme';
 import { useLanguage } from './hooks/useLanguage';
@@ -36,6 +37,7 @@ function AppContent() {
           element={<ComparePage lang={lang} metricView={metricView} />}
         />
         <Route path="/calculator" element={<CalculatorPage lang={lang} />} />
+        <Route path="/analyses" element={<AnalysesPage lang={lang} />} />
       </Routes>
 
       <Footer lang={lang} />
