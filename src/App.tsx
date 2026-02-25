@@ -8,7 +8,6 @@ import AnalysesPage from './pages/AnalysesPage';
 import { useMetricView } from './hooks/useMetricView';
 import { useTheme } from './hooks/useTheme';
 import { useLanguage } from './hooks/useLanguage';
-import { Analytics } from '@vercel/analytics/react';
 
 function AppContent() {
   const { lang, toggleLang } = useLanguage();
@@ -50,7 +49,6 @@ export default function App() {
   return (
     <BrowserRouter>
       <AppContent />
-      <Analytics />
     </BrowserRouter>
   );
 }
