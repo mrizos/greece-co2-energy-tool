@@ -19,7 +19,7 @@ export default function LandingPage({ lang }: LandingPageProps) {
         transition={{ duration: 0.6 }}
         className="text-center max-w-3xl mx-auto"
       >
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-navy dark:text-white font-outfit leading-tight">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy dark:text-white font-outfit leading-tight">
           {ftT.heroTitle[lang]}
         </h1>
         <p className="mt-4 text-lg sm:text-xl text-gray-600 dark:text-gray-300">
@@ -105,7 +105,7 @@ export default function LandingPage({ lang }: LandingPageProps) {
         {/* Mini bar showing Greece vs Paris target */}
         <div className="mt-8 bg-white dark:bg-slate-800 rounded-xl p-4 border border-gray-200 dark:border-slate-700">
           <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
-            {lang === 'el' ? 'Ελλάδα vs Στόχος Παρισιού (t CO₂/κάτοικο)' : 'Greece vs Paris target (t CO₂/capita)'}
+            {lang === 'el' ? 'Ελλάδα vs Στόχος Παρισιού (t CO₂e/κάτοικο)' : 'Greece vs Paris target (t CO₂e/capita)'}
           </p>
           <div className="space-y-2">
             <div className="flex items-center gap-3">

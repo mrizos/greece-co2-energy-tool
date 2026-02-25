@@ -354,7 +354,7 @@ export default function FootprintResults({
         </h2>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
           {lang === 'el'
-            ? 'Στείλε την αναφορά στο email σου για μελλοντική αναφορά.'
+            ? 'Στείλε την αναφορά στο email σου.'
             : 'Send the report to your email for future reference.'}
         </p>
         {emailSent ? (

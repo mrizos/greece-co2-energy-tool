@@ -81,7 +81,7 @@ export default function Footer({ lang }: FooterProps) {
               <div className="text-sm text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed">
                 <p>
                   {lang === 'el'
-                    ? 'Το CarbonTrace.gr είναι ένα εργαλείο ανοικτού κώδικα που βοηθά τους Έλληνες πολίτες να κατανοήσουν το ενεργειακό τους αποτύπωμα. Σύγκρινε καθημερινές δραστηριότητες ή υπολόγισε το ετήσιο ανθρακικό σου αποτύπωμα με εξατομικευμένες προτάσεις μείωσης.'
+                    ? 'Το CarbonTrace.gr είναι ένα εργαλείο που βοηθά τους Έλληνες πολίτες να κατανοήσουν το ενεργειακό τους αποτύπωμα. Σύγκρινε καθημερινές δραστηριότητες ή υπολόγισε το ετήσιο ανθρακικό σου αποτύπωμα με εξατομικευμένες προτάσεις μείωσης.'
                     : 'CarbonTrace.gr is an open-source tool that helps Greek citizens understand their energy footprint. Compare everyday activities or calculate your annual carbon footprint with personalised reduction recommendations.'}
                 </p>
                 <p className="text-xs text-gray-400 dark:text-gray-500 italic">

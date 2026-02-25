@@ -12,8 +12,8 @@ export const ftT = {
     en: 'Calculate Your Footprint',
   },
   calcSubtitle: {
-    el: 'Μάθε πόσο CO₂ και ενέργεια καταναλώνεις ετησίως — και τι μπορείς να αλλάξεις',
-    en: 'Learn your annual CO₂ and energy consumption — and what you can change',
+    el: 'Μάθε πόση ενέργεια καταναλώνεις και πόσο CO₂e εκλύεται από αυτές τις δραστηριότητες ετησίως — και τι μπορείς να αλλάξεις',
+    en: 'Find out how much energy you consume and the CO₂e emitted by these activities annually — and what you can change',
   },
 
   // ── Mode selection ──
@@ -43,7 +43,7 @@ export const ftT = {
 
   // ── Results ──
   yourFootprint: { el: 'Το αποτύπωμά σου', en: 'Your footprint' },
-  annualCo2: { el: 'Ετήσιες εκπομπές CO₂', en: 'Annual CO₂ emissions' },
+  annualCo2: { el: 'Ετήσιες εκπομπές CO₂e', en: 'Annual CO₂e emissions' },
   annualEnergy: { el: 'Ετήσια ενέργεια', en: 'Annual energy' },
   kgCo2Year: { el: 'kg CO₂e/χρόνο', en: 'kg CO₂e/year' },
   kwhYear: { el: 'kWh/χρόνο', en: 'kWh/year' },
@@ -72,8 +72,8 @@ export const ftT = {
     en: 'See how much you could reduce your footprint',
   },
   savingsKg: {
-    el: (n: number) => `-${n} kg CO₂/χρόνο`,
-    en: (n: number) => `-${n} kg CO₂/year`,
+    el: (n: number) => `-${n} kg CO₂e/χρόνο`,
+    en: (n: number) => `-${n} kg CO₂e/year`,
   },
   projectedTotal: {
     el: 'Προβλεπόμενο σύνολο',
@@ -99,8 +99,8 @@ export const ftT = {
 
   // ── Landing page ──
   heroTitle: {
-    el: 'Πόσο πράσινη είναι η ζωή σου;',
-    en: 'How green is your life?',
+    el: 'Ένα μόνο BBQ εκπέμπει τόσο CO₂ όσο 65 χλμ. οδήγησης ενός βενζινοκίνητου οχήματος. Δες τι άλλο δεν γνωρίζεις.',
+    en: 'One BBQ session emits as much CO₂ as driving a petrol car for 65 km. See what else you’re missing.',
   },
   heroSubtitle: {
     el: 'Δύο εργαλεία για να κατανοήσεις τις εκπομπές και την κατανάλωση ενέργειας στην Ελλάδα',
@@ -111,16 +111,16 @@ export const ftT = {
     en: 'Compare Activities',
   },
   ctaCompareDesc: {
-    el: 'Πόσο ενέργεια & CO₂ κοστίζει κάθε δραστηριότητα; Σύγκρινε οτιδήποτε.',
-    en: 'How much energy & CO₂ does each activity cost? Compare anything.',
+    el: 'Πόση ενέργεια απαιτείται & πόσο CO₂e εκλύεται από κάθε δραστηριότητα; Σύγκρινε δραστηριότητες.',
+    en: 'How much energy & CO₂e does each activity cost? Compare activities.',
   },
   ctaCalculator: {
     el: 'Υπολόγισε το Αποτύπωμά σου',
     en: 'Calculate Your Footprint',
   },
   ctaCalculatorDesc: {
-    el: 'Μάθε το ετήσιο αποτύπωμά σου σε CO₂ και ενέργεια με εξατομικευμένες προτάσεις.',
-    en: 'Learn your annual CO₂ and energy footprint with personalised recommendations.',
+    el: 'Μάθε το ετήσιο αποτύπωμά σου σε CO₂e και σε ενέργεια με εξατομικευμένες προτάσεις.',
+    en: 'Learn your annual CO₂e and energy footprint with personalised recommendations.',
   },
 
   // ── Key facts (Landing) ──
@@ -137,12 +137,12 @@ export const ftT = {
     en: '256 g CO₂/kWh — 52% renewables (2024)',
   },
   factPerCapita: {
-    el: '~6.1 τόνοι CO₂/κάτοικο/χρόνο',
-    en: '~6.1 tonnes CO₂/capita/year',
+    el: '~6.1 τόνοι CO₂e/κάτοικο/χρόνο',
+    en: '~6.1 tonnes CO₂e/capita/year',
   },
   factParis: {
-    el: 'Στόχος Παρισιού: <2.3 t CO₂/κάτοικο',
-    en: 'Paris target: <2.3 t CO₂/capita',
+    el: 'Στόχος Παρισιού: <2.3 t CO₂e/κάτοικο',
+    en: 'Paris target: <2.3 t CO₂e/capita',
   },
 
   // ── Shared ──

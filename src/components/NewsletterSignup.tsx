@@ -11,15 +11,15 @@ interface NewsletterSignupProps {
 const BREVO_FORM_URL = 'https://4f23432e.sibforms.com/serve/MUIFABHd6HKhx_yO2sgiQPxxPmDEUJzcHDJvPaW-Odjbjc9tbjbuPNGhwyABtvWnHjV7bPGm-hbrSypqV78qCqMD6wWuOkziTN66WtSLPkpwIAdNxiHAB2Emm8UxVDqFJg3WQzPLCTDmQR7Vld3_rcXLd3KVS_8juAiji4yeAy3mHfJo5geJ7B2dyTiioxtNOQrv0WNvvsqA5UU6lQ==';
 
 const T = {
-  title:           { el: 'Μείνε ενημερωμένος', en: 'Stay up-to-date!' },
-  desc:            { el: 'Κάθε μήνα ένα ελληνικό περιβαλλοντικό fact στο inbox σου.', en: 'Get crucial updates on our climate change insights and data.' },
-  namePlaceholder: { el: 'Όνομά σου', en: 'Your name' },
-  placeholder:     { el: 'Email σου', en: 'Your email address' },
+  title:           { el: 'Μείνετε ενημερωμένοι', en: 'Stay up-to-date!' },
+  desc:            { el: 'Ελληνικά περιβαλλοντικά νέα και facts, χωρίς spam, κατευθείαν στο email σου.', en: 'Get crucial updates on our climate change insights and data.' },
+  namePlaceholder: { el: 'Όνομα', en: 'Your name' },
+  placeholder:     { el: 'Email', en: 'Your email address' },
   button:          { el: 'Εγγραφή', en: 'Subscribe' },
   loading:         { el: 'Παρακαλώ περίμενε...', en: 'Please wait...' },
   success:         { el: '✅ Ωραία! Θα σου στείλω το επόμενο newsletter σύντομα.', en: '✅ Great! I\'ll send you the next newsletter soon.' },
   error:           { el: '❌ Κάτι πήγε στραβά. Δοκίμασε ξανά ή επικοινώνησε μαζί μου.', en: '❌ Something went wrong. Please try again or contact me.' },
-  gdpr:            { el: 'Συμφωνώ να λαμβάνω το μηνιαίο newsletter. Μπορώ να διαγραφώ οποτεδήποτε.', en: 'I agree to receive the monthly newsletter. I can unsubscribe at any time.' },
+  gdpr:            { el: 'Συμφωνώ να λαμβάνω το newsletter. Μπορώ να διαγραφώ οποτεδήποτε.', en: 'I agree to receive the newsletter. I can unsubscribe at any time.' },
   noSpam:          { el: 'Χωρίς spam, χωρίς διαφημίσεις.', en: 'No spam, no ads.' },
 };
 
