@@ -111,8 +111,8 @@ export default function Footer({ lang }: FooterProps) {
                   icon="🚗"
                   title={lang === 'el' ? 'Μεταφορές' : 'Transport'}
                   text={lang === 'el'
-                    ? 'Βάση: κατανάλωση καυσίμου (L/100km) × ενεργειακή πυκνότητα (Wh/L) × συντελεστής εκπομπών (g CO₂/L). Για ηλεκτρικά: kWh/100km × ελληνικός συντελεστής δικτύου (256 g CO₂/kWh). Πτήσεις: ανά επιβάτη-km με RFI ×1.9 για μη-CO₂ επιδράσεις.'
-                    : 'Base: fuel consumption (L/100km) × energy density (Wh/L) × emission factor (g CO₂/L). For EVs: kWh/100km × Greek grid factor (256 g CO₂/kWh). Flights: per passenger-km with RFI ×1.9 for non-CO₂ effects.'}
+                    ? 'Βάση: κατανάλωση καυσίμου (L/100km) × ενεργειακή πυκνότητα (Wh/L) × συντελεστής εκπομπών (g CO₂/L). Για ηλεκτρικά: kWh/100km × ελληνικός συντελεστής δικτύου (265 g CO₂/kWh, Green Tank 2025). Πτήσεις: ανά επιβάτη-km με RFI ×1.9 για μη-CO₂ επιδράσεις.'
+                    : 'Base: fuel consumption (L/100km) × energy density (Wh/L) × emission factor (g CO₂/L). For EVs: kWh/100km × Greek grid factor (265 g CO₂/kWh, Green Tank 2025). Flights: per passenger-km with RFI ×1.9 for non-CO₂ effects.'}
                 />
                 <MethodologyCard
                   icon="🏠"

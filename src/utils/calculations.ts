@@ -1,4 +1,5 @@
 import type { Activity } from '../data/activities';
+import { CONSTANTS } from '../data/constants';
 
 export interface ComputedActivity {
   activityId: string;
@@ -14,7 +15,9 @@ export function computeActivity(
   quantity: number
 ): ComputedActivity {
   const totalEnergyWh = quantity * activity.energyWhPerUnit;
-  const totalCo2eGrams = quantity * activity.co2eGramsPerUnit;
+  const totalCo2eGrams = activity.energyType === 'electric'
+    ? quantity * activity.energyWhPerUnit * CONSTANTS.GRID_FACTOR_G_PER_WH
+    : quantity * activity.co2eGramsPerUnit;
   const carbonIntensity =
     totalEnergyWh > 0 ? (totalCo2eGrams / totalEnergyWh) * 1000 : 0;
 

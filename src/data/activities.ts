@@ -11,6 +11,8 @@ export interface Activity {
   energyWhPerUnit: number;
   co2eGramsPerUnit: number;
   energyType: EnergyType;
+  /** Fraction of total CO₂e that is actual CO₂ (0–1). Remainder is CH₄, N₂O etc. Default: 1.0 */
+  co2Fraction?: number;
   methodology: {
     el: string;
     en: string;
@@ -32,6 +34,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 665,
     co2eGramsPerUnit: 170,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Μ.Ο. κατανάλωση: 7L βενζίνη/100km → 0.07 L/km. Ενεργειακό περιεχόμενο βενζίνης: 34.2 MJ/L = 9,500 Wh/L (χημική ενέργεια καυσίμου). Πρωτογενής θερμική ενέργεια: 0.07 × 9,500 = 665 Wh/km. Βαθμός απόδοσης κινητήρα βενζίνης (ΜΕΚ): ~25-30%, δηλαδή μόνο ~170-200 Wh/km γίνεται κίνηση — το υπόλοιπο 70-75% χάνεται ως θερμότητα. Εκπομπές CO₂: 0.07 L/km × 2,310 g CO₂/L = 162g, στρογγυλοποιημένο ~170g/km (well-to-wheel, συμπ. εξόρυξη & διύλιση).',
       en: 'Avg consumption: 7L petrol/100km → 0.07 L/km. Petrol energy density: 34.2 MJ/L = 9,500 Wh/L (chemical fuel energy). Primary thermal energy: 0.07 × 9,500 = 665 Wh/km. Petrol ICE efficiency: ~25-30%, meaning only ~170-200 Wh/km becomes motion — the remaining 70-75% is lost as waste heat. CO₂ emissions: 0.07 L/km × 2,310 g CO₂/L = 162g, rounded to ~170g/km (well-to-wheel, incl. extraction & refining).',
@@ -50,6 +53,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 600,
     co2eGramsPerUnit: 155,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Μ.Ο. κατανάλωση: 6L ντίζελ/100km → 0.06 L/km. Ενεργειακό περιεχόμενο ντίζελ: 36 MJ/L = 10,000 Wh/L (υψηλότερο από βενζίνη λόγω μεγαλύτερης πυκνότητας). Πρωτογενής θερμική ενέργεια: 0.06 × 10,000 = 600 Wh/km. Βαθμός απόδοσης ντίζελ ΜΕΚ: ~30-35% (καλύτερος από βενζίνη) → ωφέλιμη ~180-210 Wh/km. Εκπομπές: 0.06 L/km × 2,680 g CO₂/L = 161g ≈ 155g/km (WTW). Το ντίζελ εκπέμπει περισσότερο CO₂/λίτρο (2,680 vs 2,310) αλλά καίει λιγότερα λίτρα/km.',
       en: 'Avg consumption: 6L diesel/100km → 0.06 L/km. Diesel energy density: 36 MJ/L = 10,000 Wh/L (higher than petrol due to greater density). Primary thermal energy: 0.06 × 10,000 = 600 Wh/km. Diesel ICE efficiency: ~30-35% (better than petrol) → useful ~180-210 Wh/km. Emissions: 0.06 L/km × 2,680 g CO₂/L = 161g ≈ 155g/km (WTW). Diesel emits more CO₂/liter (2,680 vs 2,310) but burns fewer liters/km.',
@@ -68,6 +72,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 400,
     co2eGramsPerUnit: 100,
     energyType: 'mixed',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Μ.Ο. κατανάλωση: ~4.2L βενζίνη/100km ισοδύναμο → 0.042 L/km. Θερμική ενέργεια: 0.042 × 9,500 = 399 ≈ 400 Wh/km. Ο κινητήρας εναλλάσσεται μεταξύ βενζίνης (~25% απόδοση) και ηλεκτρικού (~90%), με μέση απόδοση ~35-40%. Ανάκτηση ενέργειας πέδησης (regenerative braking) μειώνει κατανάλωση. CO₂: 0.042 × 2,310 = 97g ≈ 100g/km.',
       en: 'Avg consumption: ~4.2L petrol/100km equivalent → 0.042 L/km. Thermal energy: 0.042 × 9,500 = 399 ≈ 400 Wh/km. Engine alternates between petrol (~25% efficiency) and electric (~90%), with combined avg ~35-40%. Regenerative braking recovers energy. CO₂: 0.042 × 2,310 = 97g ≈ 100g/km.',
@@ -86,6 +91,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 170,
     co2eGramsPerUnit: 44,
     energyType: 'electric',
+    co2Fraction: 0.97,
     methodology: {
       el: 'Κατανάλωση: 17 kWh/100km = 170 Wh/km (ηλεκτρική ενέργεια «στον τροχό»). Ηλεκτροκινητήρας: ~90% απόδοση (vs 25-30% βενζίνη). Εκπομπές εξαρτώνται 100% από το μείγμα δικτύου: 170 Wh/km × 0.256 g/Wh = 43.5g CO₂/km (ελληνικό δίκτυο 2024). Στη Γαλλία (55 g/kWh): μόλις 9.4g/km. Στην Πολωνία (700 g/kWh): 119g/km. Καθώς η Ελλάδα προσθέτει ΑΠΕ, αυτό πέφτει κάθε χρόνο.',
       en: 'Consumption: 17 kWh/100km = 170 Wh/km (electrical energy "at the wheel"). Electric motor: ~90% efficiency (vs 25-30% for petrol). Emissions depend 100% on grid mix: 170 Wh/km × 0.256 g/Wh = 43.5g CO₂/km (Greek grid 2024). In France (55 g/kWh): only 9.4g/km. In Poland (700 g/kWh): 119g/km. As Greece adds renewables, this drops every year.',
@@ -104,6 +110,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 285,
     co2eGramsPerUnit: 70,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Κατανάλωση: 3L βενζίνη/100km → 0.03 L/km. Θερμική ενέργεια: 0.03 × 9,500 Wh/L = 285 Wh/km. Βαθμός απόδοσης 125cc: ~25% → ~70 Wh/km ωφέλιμη. CO₂: 0.03 × 2,310 = 69g ≈ 70g/km. Πολύ αποδοτικότερο από αυτοκίνητο λόγω χαμηλού βάρους (~130kg vs ~1,400kg).',
       en: 'Consumption: 3L petrol/100km → 0.03 L/km. Thermal energy: 0.03 × 9,500 Wh/L = 285 Wh/km. 125cc efficiency: ~25% → ~70 Wh/km useful. CO₂: 0.03 × 2,310 = 69g ≈ 70g/km. Much more efficient than car due to low weight (~130kg vs ~1,400kg).',
@@ -122,6 +129,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 250,
     co2eGramsPerUnit: 65,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Λεωφορείο ντίζελ: ~40L/100km κατανάλωση. Ενέργεια ντίζελ: 40 × 10,000 Wh/L ÷ 100 = 4,000 Wh/km (σύνολο οχήματος). Μ.Ο. πληρότητα ΟΑΣΑ: ~40 επιβάτες. Ανά επιβάτη: 4,000 ÷ 40 ÷ (100/100) = 250 Wh/επιβάτη-km. CO₂: 0.4 L/km × 2,680 g/L ÷ 40 = 26.8g ≈ 65g/km (συμπ. στάσεις & αδράνεια).',
       en: 'Diesel bus: ~40L/100km consumption. Diesel energy: 40 × 10,000 Wh/L ÷ 100 = 4,000 Wh/km (total vehicle). Avg OASA occupancy: ~40 passengers. Per passenger: 4,000 ÷ 40 = 100 Wh + idle/stops overhead ≈ 250 Wh/pax-km. CO₂: 0.4 L/km × 2,680 g/L ÷ 40 = 26.8g, with stops/idle ≈ 65g/pax-km.',
@@ -140,6 +148,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 95,
     co2eGramsPerUnit: 24,
     energyType: 'electric',
+    co2Fraction: 0.97,
     methodology: {
       el: 'Ηλεκτρικό λεωφορείο: ~1.5 kWh/km κατανάλωση (12m bus). Μ.Ο. πληρότητα ΟΑΣΑ: ~40 επιβάτες. Ανά επιβάτη: 1,500 Wh ÷ 40 ≈ 37.5 Wh, ~95 Wh/pax-km (συμπ. HVAC & βοηθητικά). CO₂: 95 Wh × 0.256 g/Wh ≈ 24 g/pax-km. Η ελληνική κυβέρνηση έχει παραγγείλει 250+ ηλεκτρικά λεωφορεία για τον στόλο της ΟΑΣΑ.',
       en: 'Electric bus: ~1.5 kWh/km consumption (12m bus). Avg OASA occupancy: ~40 passengers. Per passenger: 1,500 Wh ÷ 40 ≈ 37.5 Wh, ~95 Wh/pax-km (incl. HVAC & auxiliaries). CO₂: 95 Wh × 0.256 g/Wh ≈ 24 g/pax-km. The Greek government has ordered 250+ electric buses for the OASA fleet.',
@@ -158,6 +167,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 120,
     co2eGramsPerUnit: 30,
     energyType: 'electric',
+    co2Fraction: 0.97,
     methodology: {
       el: 'Ηλεκτρική έλξη, ανά επιβάτη',
       en: 'Electric traction, per passenger',
@@ -176,6 +186,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 140,
     co2eGramsPerUnit: 35,
     energyType: 'electric',
+    co2Fraction: 0.97,
     methodology: {
       el: 'Ηλεκτρικό, ανά επιβάτη',
       en: 'Electric, per passenger',
@@ -194,6 +205,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 120,
     co2eGramsPerUnit: 30,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Υπεραστικό ντίζελ λεωφορείο: ~25L/100km (πιο αποδοτικό σε αυτοκινητόδρομο vs αστικό). Ενέργεια: 0.25 × 10,000 = 2,500 Wh/km (σύνολο). Μ.Ο. πληρότητα ΚΤΕΛ: ~30 επιβάτες. Ανά επιβάτη: 2,500 ÷ 30 ≈ 83 Wh, στρογγ. ~120 Wh/pax-km (συμπ. κλιματισμό & στάσεις). CO₂: 0.25 × 2,680 ÷ 30 ≈ 22g, ~30g/km (WTW).',
       en: 'Intercity diesel bus: ~25L/100km (more efficient on highway vs urban). Energy: 0.25 × 10,000 = 2,500 Wh/km (total). Avg KTEL occupancy: ~30 pax. Per passenger: 2,500 ÷ 30 ≈ 83 Wh, rounded ~120 Wh/pax-km (incl. A/C & stops). CO₂: 0.25 × 2,680 ÷ 30 ≈ 22g, ~30g/km (WTW).',
@@ -212,6 +224,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 140,
     co2eGramsPerUnit: 35,
     energyType: 'mixed',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Μικτός στόλος ντίζελ/ηλεκτρικός',
       en: 'Mixed diesel/electric fleet',
@@ -230,6 +243,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 500,
     co2eGramsPerUnit: 130,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Συμβατικό φέρι (π.χ. Blue Star): ~2,000-3,000L θαλάσσιου ντίζελ/ώρα. Ενεργειακό περιεχόμενο marine diesel: ~10,200 Wh/L (≈36.7 MJ/L). Ταχύτητα ~18 knots = ~33 km/h. Χωρητικότητα: ~1,500-2,000 επιβάτες. Ανά επιβάτη-km: ~500 Wh. CO₂: marine diesel εκπέμπει ~2,680 g CO₂/L, διαιρεμένο σε επιβάτες ≈ 130g/pax-km.',
       en: 'Conventional ferry (e.g. Blue Star): ~2,000-3,000L marine diesel/hour. Marine diesel energy density: ~10,200 Wh/L (≈36.7 MJ/L). Speed ~18 knots = ~33 km/h. Capacity: ~1,500-2,000 pax. Per passenger-km: ~500 Wh. CO₂: marine diesel emits ~2,680 g CO₂/L, divided by passengers ≈ 130g/pax-km.',
@@ -248,6 +262,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 960,
     co2eGramsPerUnit: 250,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Ταχύπλοο (π.χ. Seajets, Hellenic Seaways): ~5,000-8,000L/ώρα θαλάσσιο ντίζελ, ταχύτητα ~35 knots = ~65 km/h. Χωρητικότητα: ~800-1,200 επιβάτες. Η αντίσταση νερού αυξάνεται εκθετικά με ταχύτητα → διπλάσια ταχύτητα ≈ τετραπλάσια κατανάλωση. Ανά επιβάτη-km: ~960 Wh (σχεδόν 2× συμβατικό). CO₂: ~250g/pax-km.',
       en: 'High-speed ferry (e.g. Seajets, Hellenic Seaways): ~5,000-8,000L/hour marine diesel, speed ~35 knots = ~65 km/h. Capacity: ~800-1,200 pax. Water drag increases exponentially with speed → double speed ≈ quadruple fuel. Per passenger-km: ~960 Wh (nearly 2× conventional). CO₂: ~250g/pax-km.',
@@ -266,6 +281,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 420000,
     co2eGramsPerUnit: 110000,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Απόσταση: ~350km. Καύσιμο: κηροζίνη (Jet A-1), ενεργειακό περιεχόμενο 34.7 MJ/L = 9,640 Wh/L. Τυπικό A320: ~2,500L/ώρα, ~170 θέσεις, ~1h πτήση. Ανά επιβάτη: ~15L κηροζίνη × 9,640 = ~145,000 Wh. Αλλά σε σύντομη πτήση, η απογείωση/προσγείωση αντιπροσωπεύει μεγάλο % → αυξημένο ανά km. Τελική εκτίμηση: ~420 kWh/επιβάτη. CO₂: κηροζίνη εκπέμπει 2,520 g CO₂/L → ~15L × 2,520 = 37,800g + RFI (radiative forcing multiplier ~2.5-3×) ≈ 110 kg CO₂e.',
       en: 'Distance: ~350km. Fuel: kerosene (Jet A-1), energy density 34.7 MJ/L = 9,640 Wh/L. Typical A320: ~2,500L/hour, ~170 seats, ~1h flight. Per passenger: ~15L kerosene × 9,640 = ~145,000 Wh. But for short flights, takeoff/landing is a large % → higher per-km rate. Final estimate: ~420 kWh/pax. CO₂: kerosene emits 2,520 g CO₂/L → ~15L × 2,520 = 37,800g + RFI (radiative forcing multiplier ~2.5-3×) ≈ 110 kg CO₂e.',
@@ -284,6 +300,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 1850000,
     co2eGramsPerUnit: 480000,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Απόσταση: ~2,500km. Καύσιμο: κηροζίνη Jet A-1 (9,640 Wh/L, 2,520 g CO₂/L). Ανά επιβάτη economy: ~65L κηροζίνη. Ενέργεια: 65 × 9,640 = 626,600 Wh ≈ 627 kWh (πρωτογενής). Λόγω cruise efficiency σε μεγάλο ύψος → χαμηλότερο ανά km vs κοντινή πτήση. CO₂: 65 × 2,520 = 163,800g × RFI ≈ 480 kg CO₂e. Ο πολλαπλασιαστής RFI (~2.5-3×) αντανακλά contrails & NOx σε μεγάλο ύψος.',
       en: 'Distance: ~2,500km. Fuel: kerosene Jet A-1 (9,640 Wh/L, 2,520 g CO₂/L). Per pax economy: ~65L kerosene. Energy: 65 × 9,640 = 626,600 Wh ≈ 627 kWh (primary). Due to cruise efficiency at high altitude → lower per-km vs short flight. CO₂: 65 × 2,520 = 163,800g × RFI ≈ 480 kg CO₂e. RFI multiplier (~2.5-3×) reflects contrails & NOx at altitude.',
@@ -302,6 +319,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 6700000,
     co2eGramsPerUnit: 1750000,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Απόσταση: ~8,200km. Καύσιμο: κηροζίνη Jet A-1 (9,640 Wh/L, 2,520 g CO₂/L). Ανά επιβάτη economy: ~230L κηροζίνη. Ενέργεια: 230 × 9,640 = 2,217,200 Wh ≈ 2,217 kWh (πρωτογενής) → ~6,700 kWh (πλήρες κύκλου). CO₂: 230 × 2,520 = 579,600g × RFI (~3×) ≈ 1,750 kg CO₂e. Μια μόνο πτήση μετ\' επιστροφής = ~3,500 kg = 50% του ετήσιου αποτυπώματος ενός Έλληνα.',
       en: 'Distance: ~8,200km. Fuel: kerosene Jet A-1 (9,640 Wh/L, 2,520 g CO₂/L). Per pax economy: ~230L kerosene. Energy: 230 × 9,640 = 2,217,200 Wh ≈ 2,217 kWh (primary) → ~6,700 kWh (full cycle). CO₂: 230 × 2,520 = 579,600g × RFI (~3×) ≈ 1,750 kg CO₂e. A single round trip ≈ 3,500 kg = 50% of an average Greek person\'s annual footprint.',
@@ -320,6 +338,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 25,
     co2eGramsPerUnit: 15,
     energyType: 'electric',
+    co2Fraction: 0.97,
     methodology: {
       el: '25 Wh/km ηλεκτρικό + κύκλος ζωής',
       en: '25 Wh/km electric + lifecycle overhead',
@@ -358,6 +377,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 4000,
     co2eGramsPerUnit: 800,
     energyType: 'fossil',
+    co2Fraction: 0.9,
     methodology: {
       el: 'Λέβητας ονομαστ. ισχύος 15kW, πραγματική κατανάλωση ~4 kWh θερμικής ενέργειας/ώρα. Φυσικό αέριο: ενεργειακό περιεχόμενο 10,500 Wh/m³ (37.8 MJ/m³). Κατανάλωση: 4,000 ÷ 10,500 = 0.38 m³/ώρα. Βαθμός απόδοσης λέβητα: ~90% (σύγχρονος συμπύκνωσης). CO₂: 0.38 m³ × 2,020 g CO₂/m³ = 768g ≈ 800g/ώρα. Σύγκριση: χαμηλότερο CO₂ από πετρέλαιο λόγω χαμηλότερου C/H ratio στο φυσικό αέριο.',
       en: 'Boiler rated 15kW, actual consumption ~4 kWh thermal/hour. Natural gas energy density: 10,500 Wh/m³ (37.8 MJ/m³). Consumption: 4,000 ÷ 10,500 = 0.38 m³/hr. Boiler efficiency: ~90% (modern condensing). CO₂: 0.38 m³ × 2,020 g CO₂/m³ = 768g ≈ 800g/hr. Comparison: lower CO₂ than heating oil due to lower C/H ratio in natural gas.',
@@ -376,6 +396,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 4500,
     co2eGramsPerUnit: 1100,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Πετρέλαιο θέρμανσης (heating oil): ενεργειακό περιεχόμενο 36 MJ/L = 10,000 Wh/L. Κατανάλωση: ~0.45L/ώρα (τυπικό ελληνικό σπίτι). Θερμική ενέργεια: 0.45 × 10,000 = 4,500 Wh/ώρα. Βαθμός απόδοσης καυστήρα: ~85-90%. CO₂: 0.45 L × 2,680 g CO₂/L (ίδιο με ντίζελ) = 1,206g ≈ 1,100g/ώρα. Το πετρέλαιο θέρμανσης εκπέμπει ~38% περισσότερο CO₂ από φυσικό αέριο για ίδια θερμότητα.',
       en: 'Heating oil energy density: 36 MJ/L = 10,000 Wh/L. Consumption: ~0.45L/hr (typical Greek home). Thermal energy: 0.45 × 10,000 = 4,500 Wh/hr. Burner efficiency: ~85-90%. CO₂: 0.45 L × 2,680 g CO₂/L (same as diesel) = 1,206g ≈ 1,100g/hr. Heating oil emits ~38% more CO₂ than natural gas for the same heat output.',
@@ -412,6 +433,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 3500,
     co2eGramsPerUnit: 150,
     energyType: 'mixed',
+    co2Fraction: 0.92,
     methodology: {
       el: '~3.5kW θερμικό· σχεδόν ουδέτερη βιομάζα',
       en: '~3.5kW thermal; near-carbon-neutral biomass',
@@ -502,6 +524,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 50,
     co2eGramsPerUnit: 10,
     energyType: 'fossil',
+    co2Fraction: 0.9,
     methodology: {
       el: 'Καυστήρας αερίου ~3kW θερμικής ισχύος. Για 30 λεπτά: 3,000W × 0.5h = 1,500 Wh θερμικής ενέργειας. Ανά λεπτό: 50 Wh. Φυσικό αέριο: 10,500 Wh/m³, άρα 1,500 ÷ 10,500 = 0.143 m³. CO₂: 0.143 × 2,020 = 289g → 10g/λεπτό. Απόδοση εστίας αερίου: ~40% (vs 85% επαγωγικής) — πολλή θερμότητα χάνεται στον αέρα γύρω από τη χύτρα.',
       en: 'Gas burner ~3kW thermal output. For 30 min: 3,000W × 0.5h = 1,500 Wh thermal energy. Per minute: 50 Wh. Natural gas: 10,500 Wh/m³, so 1,500 ÷ 10,500 = 0.143 m³. CO₂: 0.143 × 2,020 = 289g → 10g/min. Gas hob efficiency: ~40% (vs 85% induction) — much heat is lost to air around the pot.',
@@ -557,6 +580,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 30000,
     co2eGramsPerUnit: 11000,
     energyType: 'fossil',
+    co2Fraction: 0.92,
     methodology: {
       el: 'Τυπικό ψήσιμο ~2 ωρών: ~3 kg κάρβουνο. Κάθε kg παράγει ~3.67 kg CO₂ (DEFRA). Σύνολο: 3 × 3,670 = 11,010g ≈ 11 kg CO₂/session. Ενσωματωμένη ενέργεια παραγωγής κάρβουνου (πυρόλυση ξύλου): ~10 kWh/kg → 30,000 Wh. Σύγκριση: ~7× περισσότερο CO₂ από LPG BBQ.',
       en: 'Typical ~2 hour BBQ: ~3 kg charcoal. Each kg produces ~3.67 kg CO₂ (DEFRA). Total: 3 × 3,670 = 11,010g ≈ 11 kg CO₂/session. Embedded energy for charcoal production (wood pyrolysis): ~10 kWh/kg → 30,000 Wh. Comparison: ~7× more CO₂ than LPG BBQ.',
@@ -575,6 +599,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 7100,
     co2eGramsPerUnit: 1500,
     energyType: 'fossil',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Τυπικό ψήσιμο ~2 ωρών: ~0.5 kg προπάνιο (LPG). Ενεργειακό περιεχόμενο: ~12.8 kWh/kg. Ενέργεια: 0.5 × 12,800 ÷ 0.9 ≈ 7,100 Wh. CO₂: 0.5 × 3,020 g/kg = 1,510g ≈ 1,500g. Πολύ αποδοτικότερο: ~7× λιγότερο CO₂ από κάρβουνο.',
       en: 'Typical ~2 hour BBQ: ~0.5 kg propane (LPG). Energy density: ~12.8 kWh/kg. Energy: 0.5 × 12,800 ÷ 0.9 ≈ 7,100 Wh. CO₂: 0.5 × 3,020 g/kg = 1,510g ≈ 1,500g. Much more efficient: ~7× less CO₂ than charcoal.',
@@ -921,6 +946,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 20800,
     co2eGramsPerUnit: 99500,
     energyType: 'embedded',
+    co2Fraction: 0.5,
     methodology: {
       el: '~75 MJ/kg ενέργεια κύκλου ζωής· ~99.5 kg CO₂e/kg (beef herd, Poore & Nemecek 2018). Περιλαμβάνει μεθάνιο, ζωοτροφές, αλλαγή χρήσης γης.',
       en: '~75 MJ/kg lifecycle energy; ~99.5 kg CO₂e/kg (beef herd, Poore & Nemecek 2018). Includes methane, feed, land use change.',
@@ -939,6 +965,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 18000,
     co2eGramsPerUnit: 25000,
     energyType: 'embedded',
+    co2Fraction: 0.5,
     methodology: {
       el: 'Ευρωπαϊκό μοσχάρι, μικρότερη αλλαγή χρήσης γης· ~22-28 kg CO₂e/kg (EEA, cradle-to-gate). Μεσογειακή εκτροφή, αγελάδες γαλακτοπαραγωγής + κρεατοπαραγωγής.',
       en: 'European beef, lower land use change; ~22-28 kg CO₂e/kg (EEA, cradle-to-gate). Mediterranean farming, dairy + beef herds.',
@@ -957,6 +984,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 22000,
     co2eGramsPerUnit: 44000,
     energyType: 'embedded',
+    co2Fraction: 0.5,
     methodology: {
       el: 'Αργεντίνικο βόειο: ~44 kg CO₂e/kg (συμπ. αλλαγή χρήσης γης). Εκτατική βόσκηση σε πάμπα, υψηλότερο από ΕΕ λόγω αποψίλωσης.',
       en: 'Argentine beef: ~44 kg CO₂e/kg (incl. land use change). Extensive pampa grazing, higher than EU due to deforestation.',
@@ -975,6 +1003,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 17000,
     co2eGramsPerUnit: 22000,
     energyType: 'embedded',
+    co2Fraction: 0.5,
     methodology: {
       el: 'Γαλλικό βόειο: ~22 kg CO₂e/kg. Ελάχιστη αλλαγή χρήσης γης, μικτό σύστημα γαλακτοπαραγωγής/κρεατοπαραγωγής.',
       en: 'French beef: ~22 kg CO₂e/kg. Minimal land use change, mixed dairy/beef system.',
@@ -993,6 +1022,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 18000,
     co2eGramsPerUnit: 39200,
     energyType: 'embedded',
+    co2Fraction: 0.5,
     methodology: {
       el: 'Παγκόσμιος μ.ο. ~39.2 kg CO₂e/kg (Poore & Nemecek 2018)· ~65 MJ/kg ενέργεια.',
       en: 'Global avg ~39.2 kg CO₂e/kg (Poore & Nemecek 2018); ~65 MJ/kg energy.',
@@ -1011,6 +1041,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 15000,
     co2eGramsPerUnit: 22000,
     energyType: 'embedded',
+    co2Fraction: 0.5,
     methodology: {
       el: 'Ελληνικό εκτατικό/ημιεκτατικό αρνί: ~19-25 kg CO₂e/kg ζωντανού βάρους. Μεσογειακή βόσκηση, μετακινούμενη κτηνοτροφία μειώνει αποτύπωμα κατά ~30%.',
       en: 'Greek extensive/semi-extensive lamb: ~19-25 kg CO₂e/kg live weight. Mediterranean grazing, transhumance reduces footprint by ~30%.',
@@ -1029,6 +1060,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 22000,
     co2eGramsPerUnit: 7600,
     energyType: 'embedded',
+    co2Fraction: 0.8,
     methodology: {
       el: 'Κύκλος ζωής',
       en: 'Lifecycle',
@@ -1047,6 +1079,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 20000,
     co2eGramsPerUnit: 6900,
     energyType: 'embedded',
+    co2Fraction: 0.8,
     methodology: {
       el: 'Κύκλος ζωής',
       en: 'Lifecycle',
@@ -1065,6 +1098,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 16000,
     co2eGramsPerUnit: 5400,
     energyType: 'embedded',
+    co2Fraction: 0.85,
     methodology: {
       el: 'Ελληνική υδατοκαλλιέργεια',
       en: 'Greek aquaculture',
@@ -1076,13 +1110,14 @@ export const activities: Activity[] = [
   {
     id: 'fish_wild',
     category: 'food',
-    name: { el: 'Ψάρι αγριαλίευτο', en: 'Fish wild-caught' },
+    name: { el: 'Ψάρι ελεύθερης αλιείας', en: 'Fish wild-caught' },
     icon: '🎣',
     defaultQuantity: 1,
     unit: { el: 'kg', en: 'kg' },
     energyWhPerUnit: 10000,
     co2eGramsPerUnit: 3500,
     energyType: 'embedded',
+    co2Fraction: 0.95,
     methodology: {
       el: 'Μεσόγειος',
       en: 'Mediterranean',
@@ -1101,6 +1136,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 30000,
     co2eGramsPerUnit: 24000,
     energyType: 'embedded',
+    co2Fraction: 0.6,
     methodology: {
       el: '~24 kg CO₂e/kg (Poore & Nemecek 2018). Υψηλό αποτύπωμα γιατί χρειάζονται ~10L γάλα ανά kg τυρί.',
       en: '~24 kg CO₂e/kg (Poore & Nemecek 2018). High footprint because ~10L milk needed per kg cheese.',
@@ -1119,6 +1155,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 9000,
     co2eGramsPerUnit: 3200,
     energyType: 'embedded',
+    co2Fraction: 0.6,
     methodology: {
       el: 'Κύκλος ζωής',
       en: 'Lifecycle',
@@ -1137,6 +1174,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 10000,
     co2eGramsPerUnit: 3500,
     energyType: 'embedded',
+    co2Fraction: 0.6,
     methodology: {
       el: 'Ελληνικό γιαούρτι',
       en: 'Greek yogurt',
@@ -1155,6 +1193,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 1000,
     co2eGramsPerUnit: 350,
     energyType: 'embedded',
+    co2Fraction: 0.75,
     methodology: {
       el: 'Ανά ντουζίνα: 12000 Wh, 4200g CO₂',
       en: 'Per dozen: 12000 Wh, 4200g CO₂',
@@ -1173,6 +1212,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 10000,
     co2eGramsPerUnit: 3500,
     energyType: 'embedded',
+    co2Fraction: 0.9,
     methodology: {
       el: 'Σχετικά χαμηλό για έλαιο',
       en: 'Relatively low for an oil',
@@ -1191,6 +1231,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 11000,
     co2eGramsPerUnit: 4000,
     energyType: 'embedded',
+    co2Fraction: 0.55,
     methodology: {
       el: 'Μεθάνιο από ορυζώνες',
       en: 'Methane from paddies',
@@ -1209,6 +1250,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 3000,
     co2eGramsPerUnit: 1000,
     energyType: 'embedded',
+    co2Fraction: 0.85,
     methodology: {
       el: 'Κύκλος ζωής',
       en: 'Lifecycle',
@@ -1227,6 +1269,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 2000,
     co2eGramsPerUnit: 700,
     energyType: 'embedded',
+    co2Fraction: 0.9,
     methodology: {
       el: 'Τοπικές, εποχής',
       en: 'Local, in-season',
@@ -1245,6 +1288,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 7000,
     co2eGramsPerUnit: 2500,
     energyType: 'embedded',
+    co2Fraction: 0.85,
     methodology: {
       el: 'Θερμαινόμενο θερμοκήπιο',
       en: 'Heated greenhouse',
@@ -1263,6 +1307,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 2500,
     co2eGramsPerUnit: 900,
     energyType: 'embedded',
+    co2Fraction: 0.8,
     methodology: {
       el: 'Βασικό στοιχείο ελληνικής διατροφής',
       en: 'Staple of Greek diet',
@@ -1281,6 +1326,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 170,
     co2eGramsPerUnit: 60,
     energyType: 'embedded',
+    co2Fraction: 0.85,
     methodology: {
       el: 'Κύκλος ζωής',
       en: 'Lifecycle',
@@ -1299,6 +1345,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 750,
     co2eGramsPerUnit: 270,
     energyType: 'embedded',
+    co2Fraction: 0.85,
     methodology: {
       el: 'Συμπεριλαμβανόμενος κύκλος ζωής κάψουλας',
       en: 'Including pod lifecycle',
@@ -1317,6 +1364,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 1400,
     co2eGramsPerUnit: 500,
     energyType: 'embedded',
+    co2Fraction: 0.85,
     methodology: {
       el: 'Κύκλος ζωής',
       en: 'Lifecycle',
@@ -1335,6 +1383,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 3400,
     co2eGramsPerUnit: 1200,
     energyType: 'embedded',
+    co2Fraction: 0.85,
     methodology: {
       el: '750ml',
       en: '750ml',
@@ -1774,6 +1823,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 200,
     co2eGramsPerUnit: 590,
     energyType: 'embedded',
+    co2Fraction: 0.3,
     methodology: {
       el: 'Μεθάνιο από αποσύνθεση',
       en: 'Methane from decomposition',
@@ -1810,6 +1860,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 30,
     co2eGramsPerUnit: 10,
     energyType: 'embedded',
+    co2Fraction: 0.4,
     methodology: {
       el: 'Σε σχέση με μεθάνιο ΧΥΤΑ',
       en: 'Vs landfill methane',
@@ -1828,6 +1879,7 @@ export const activities: Activity[] = [
     energyWhPerUnit: 280,
     co2eGramsPerUnit: 100,
     energyType: 'embedded',
+    co2Fraction: 0.85,
     methodology: {
       el: 'Κατασκευή + μεταφορά',
       en: 'Manufacturing + transport',

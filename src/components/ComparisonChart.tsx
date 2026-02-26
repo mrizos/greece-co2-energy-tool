@@ -28,6 +28,8 @@ interface BarItem {
   co2Label: string;
   energyPct: number;
   co2Pct: number;
+  quantityLabel: string;
+  co2Fraction: number;
 }
 
 export default function ComparisonChart({
@@ -48,6 +50,8 @@ export default function ComparisonChart({
       co2Label: formatEmissions(c.totalCo2eGrams),
       energyPct: 0,
       co2Pct: 0,
+      quantityLabel: `${c.quantity} ${c.activity.unit[lang]}`,
+      co2Fraction: c.activity.co2Fraction ?? 1.0,
     }));
 
     // Sort descending by active metric (negatives go to the bottom)
@@ -88,6 +92,9 @@ export default function ComparisonChart({
   const hasNegativeEnergy = items.some((i) => i.energyWh < 0);
   const hasNegativeCo2 = items.some((i) => i.co2Grams < 0);
 
+  // Check if any item has non-CO₂ GHGs to show legend
+  const hasGhgBreakdown = items.some((i) => i.co2Fraction < 1);
+
   const renderBars = (
     getPct: (item: BarItem) => number,
     getLabel: (item: BarItem) => string,
@@ -96,6 +103,7 @@ export default function ComparisonChart({
     icon: string,
     colorClass: string,
     hasDivergence: boolean,
+    isEmissions: boolean,
   ) => (
     <div>
       <h3 className={`text-xs font-medium ${colorClass} mb-3`}>
@@ -109,7 +117,7 @@ export default function ComparisonChart({
 
       {hasDivergence ? (
         /* Diverging bar chart for mixed positive/negative */
-        <div className="space-y-2">
+        <div className="space-y-3">
           <AnimatePresence mode="popLayout">
             {items.map((item) => {
               const pct = getPct(item);
@@ -130,9 +138,12 @@ export default function ComparisonChart({
                   className="flex items-center gap-2"
                 >
                   {/* Label */}
-                  <div className="w-36 sm:w-44 flex-shrink-0 text-right pr-2">
+                  <div className="w-44 sm:w-56 flex-shrink-0 text-right pr-2">
                     <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 truncate block">
                       {item.icon} {item.name}
+                    </span>
+                    <span className="text-[10px] text-gray-400 dark:text-gray-500 block">
+                      {item.quantityLabel}
                     </span>
                   </div>
 
@@ -142,7 +153,7 @@ export default function ComparisonChart({
                     <div className="flex-1 flex justify-end items-center pr-1 min-w-0">
                       {isNegative && (
                         <motion.div
-                          className="h-6 rounded-l-full flex items-center pl-2"
+                          className="h-8 rounded-l-full flex items-center pl-2"
                           style={{ backgroundColor: color, width: `${absPct}%` }}
                           initial={{ width: 0 }}
                           animate={{ width: `${absPct}%` }}
@@ -158,14 +169,14 @@ export default function ComparisonChart({
                     </div>
 
                     {/* Center divider line */}
-                    <div className="w-px h-6 bg-gray-300 dark:bg-slate-500 flex-shrink-0" />
+                    <div className="w-px h-8 bg-gray-300 dark:bg-slate-500 flex-shrink-0" />
 
                     {/* Right side (positives grow rightward) */}
                     <div className="flex-1 flex items-center pl-1 gap-2 min-w-0">
                       {!isNegative && (
                         <>
                           <motion.div
-                            className="h-6 rounded-r-full flex items-center justify-end pr-2"
+                            className="h-8 rounded-r-full flex items-center justify-end pr-2 overflow-hidden"
                             style={{ backgroundColor: color, minWidth: absPct > 0 ? '8px' : 0 }}
                             initial={{ width: 0 }}
                             animate={{ width: `${absPct}%` }}
@@ -198,12 +209,14 @@ export default function ComparisonChart({
         </div>
       ) : (
         /* Standard bar chart (all positive) */
-        <div className="space-y-2">
+        <div className="space-y-3">
           <AnimatePresence mode="popLayout">
             {items.map((item) => {
               const pct = getPct(item);
               const label = getLabel(item);
               const color = CATEGORY_COLORS[item.category];
+              const showStacked = isEmissions && item.co2Fraction < 1;
+
               return (
                 <motion.div
                   key={item.id}
@@ -215,25 +228,56 @@ export default function ComparisonChart({
                   className="flex items-center gap-2"
                 >
                   {/* Label */}
-                  <div className="w-36 sm:w-44 flex-shrink-0 text-right pr-2">
+                  <div className="w-44 sm:w-56 flex-shrink-0 text-right pr-2">
                     <span className="text-xs sm:text-sm text-gray-700 dark:text-gray-300 truncate block">
                       {item.icon} {item.name}
+                    </span>
+                    <span className="text-[10px] text-gray-400 dark:text-gray-500 block">
+                      {item.quantityLabel}
                     </span>
                   </div>
                   {/* Bar + value */}
                   <div className="flex-1 flex items-center gap-2 min-w-0">
-                    <div className="flex-1 bg-gray-100 dark:bg-slate-700 rounded-full h-6 overflow-hidden">
+                    <div className="flex-1 bg-gray-100 dark:bg-slate-700 rounded-full h-8 overflow-hidden">
                       <motion.div
-                        className="h-full rounded-full flex items-center justify-end pr-2"
-                        style={{ backgroundColor: color }}
+                        className="h-full rounded-full flex items-center justify-end pr-2 overflow-hidden"
+                        style={{ backgroundColor: showStacked ? 'transparent' : color }}
                         initial={{ width: 0 }}
                         animate={{ width: `${pct}%` }}
                         transition={{ duration: 0.5, ease: 'easeOut' }}
                       >
-                        {pct > 25 && (
-                          <span className="text-[10px] font-semibold text-white whitespace-nowrap">
-                            {label}
-                          </span>
+                        {showStacked ? (
+                          /* Stacked: CO₂ solid + other GHGs lighter */
+                          <div className="h-full w-full relative rounded-full overflow-hidden">
+                            <div className="h-full w-full flex">
+                              <div
+                                className="h-full"
+                                style={{
+                                  backgroundColor: color,
+                                  width: `${item.co2Fraction * 100}%`,
+                                }}
+                              />
+                              <div
+                                className="h-full"
+                                style={{
+                                  backgroundColor: color,
+                                  opacity: 0.35,
+                                  width: `${(1 - item.co2Fraction) * 100}%`,
+                                }}
+                              />
+                            </div>
+                            {pct > 25 && (
+                              <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-white whitespace-nowrap">
+                                {label}
+                              </span>
+                            )}
+                          </div>
+                        ) : (
+                          pct > 25 && (
+                            <span className="text-[10px] font-semibold text-white whitespace-nowrap">
+                              {label}
+                            </span>
+                          )
                         )}
                       </motion.div>
                     </div>
@@ -247,6 +291,20 @@ export default function ComparisonChart({
               );
             })}
           </AnimatePresence>
+        </div>
+      )}
+
+      {/* GHG Legend — only for emissions view when breakdown data exists */}
+      {isEmissions && hasGhgBreakdown && (
+        <div className="mt-3 flex items-center gap-4 text-[10px] text-gray-500 dark:text-gray-400 pl-44 sm:pl-56">
+          <span className="flex items-center gap-1">
+            <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: '#6B7280' }} />
+            CO₂
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: '#6B7280', opacity: 0.35 }} />
+            {lang === 'el' ? 'Λοιπά GHGs (CH₄, N₂O)' : 'Other GHGs (CH₄, N₂O)'}
+          </span>
         </div>
       )}
     </div>
@@ -263,6 +321,7 @@ export default function ComparisonChart({
           '⚡',
           'text-amber-600 dark:text-amber-400',
           hasNegativeEnergy,
+          false,
         )}
       {showEmissions &&
         renderBars(
@@ -273,6 +332,7 @@ export default function ComparisonChart({
           '🌍',
           'text-emerald-600 dark:text-emerald-400',
           hasNegativeCo2,
+          true,
         )}
     </div>
   );

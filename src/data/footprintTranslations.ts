@@ -133,8 +133,12 @@ export const ftT = {
     en: 'Greece energy mix',
   },
   factGrid: {
-    el: '256 g CO₂/kWh — 52% ΑΠΕ (2024)',
-    en: '256 g CO₂/kWh — 52% renewables (2024)',
+    el: '265 g CO₂/kWh — ~57% ΑΠΕ (2025)',
+    en: '265 g CO₂/kWh — ~57% renewables (2025)',
+  },
+  factGridFootnote: {
+    el: 'Πηγή: Green Tank, 2025. Άμεσες εκπομπές CO₂ (EU ETS), μεικτή παραγωγή. Δεν περιλαμβάνει upstream εκπομπές (εξόρυξη/μεταφορά καυσίμων) ή κατασκευή σταθμών.',
+    en: 'Source: Green Tank, 2025. Direct CO₂ emissions (EU ETS), gross generation. Excludes upstream emissions (fuel extraction/transport) and plant construction.',
   },
   factPerCapita: {
     el: '~6.1 τόνοι CO₂e/κάτοικο/χρόνο',

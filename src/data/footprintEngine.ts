@@ -69,7 +69,7 @@ const FACTORS = {
     diesel_large: { co2GPerKm: 200, whPerKm: 750 },    // ~7.5L/100km
     hybrid: { co2GPerKm: 95, whPerKm: 400 },           // ~4.2L/100km
     plugin_hybrid: { co2GPerKm: 60, whPerKm: 280 },    // 50% electric assumption
-    ev: { co2GPerKm: 40, whPerKm: 160 },               // 16kWh/100km × 256g/kWh grid
+    ev: { co2GPerKm: 42, whPerKm: 160 },               // 16kWh/100km × 265g/kWh grid
     lpg: { co2GPerKm: 130, whPerKm: 640 },             // ~9L/100km LPG
   } as Record<string, { co2GPerKm: number; whPerKm: number }>,
 
@@ -116,7 +116,7 @@ const FACTORS = {
     heat_pump: { efficiency: 3.5, co2GPerKwhThermal: 73, energyFactorKwhPerKwhThermal: 0.29 },
     ac_heating: { efficiency: 3.0, co2GPerKwhThermal: 85, energyFactorKwhPerKwhThermal: 0.33 },
     wood: { efficiency: 0.75, co2GPerKwhThermal: 40, energyFactorKwhPerKwhThermal: 1.33 },
-    electric_heater: { efficiency: 1.0, co2GPerKwhThermal: 256, energyFactorKwhPerKwhThermal: 1.0 },
+    electric_heater: { efficiency: 1.0, co2GPerKwhThermal: 265, energyFactorKwhPerKwhThermal: 1.0 },
     none: { efficiency: 1, co2GPerKwhThermal: 0, energyFactorKwhPerKwhThermal: 0 },
   } as Record<string, { efficiency: number; co2GPerKwhThermal: number; energyFactorKwhPerKwhThermal: number }>,
 

@@ -50,8 +50,8 @@ export const translations = {
     en: 'Grid emission factor',
   },
   renewableShare: {
-    el: '52% ανανεώσιμες πηγές (2024)',
-    en: '52% renewable sources (2024)',
+    el: '~57% ανανεώσιμες πηγές (2025)',
+    en: '~57% renewable sources (2025)',
   },
   carbonIntensity: {
     el: 'Ένταση άνθρακα',

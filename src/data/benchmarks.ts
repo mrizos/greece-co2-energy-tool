@@ -54,12 +54,13 @@ export const gridHistoryData = [
   { year: 2021, factor: 380 },
   { year: 2022, factor: 340 },
   { year: 2023, factor: 290 },
-  { year: 2024, factor: 256 },
+  { year: 2024, factor: 269 },
+  { year: 2025, factor: 265 },
 ];
 
 export const countryGridFactors = [
   { country: { el: 'Γαλλία', en: 'France' }, factor: 55 },
-  { country: { el: 'Ελλάδα', en: 'Greece' }, factor: 256 },
+  { country: { el: 'Ελλάδα', en: 'Greece' }, factor: 265 },
   { country: { el: 'ΕΕ μέσος', en: 'EU avg' }, factor: 225 },
   { country: { el: 'Γερμανία', en: 'Germany' }, factor: 350 },
   { country: { el: 'Πολωνία', en: 'Poland' }, factor: 700 },

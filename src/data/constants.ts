@@ -1,7 +1,7 @@
 export const CONSTANTS = {
-  // Greek electricity grid (2024 average)
-  GRID_FACTOR_G_PER_WH: 0.256,
-  GRID_FACTOR_G_PER_KWH: 256,
+  // Greek electricity grid (Green Tank 2025 average)
+  GRID_FACTOR_G_PER_WH: 0.265,
+  GRID_FACTOR_G_PER_KWH: 265,
 
   // Fuel energy densities (Wh per liter)
   PETROL_WH_PER_L: 9500,

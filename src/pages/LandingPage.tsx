@@ -89,6 +89,7 @@ export default function LandingPage({ lang }: LandingPageProps) {
             icon="🇬🇷"
             title={ftT.factGridTitle[lang]}
             value={ftT.factGrid[lang]}
+            footnote={ftT.factGridFootnote[lang]}
           />
           <FactCard
             icon="👤"
@@ -151,12 +152,15 @@ export default function LandingPage({ lang }: LandingPageProps) {
   );
 }
 
-function FactCard({ icon, title, value }: { icon: string; title: string; value: string }) {
+function FactCard({ icon, title, value, footnote }: { icon: string; title: string; value: string; footnote?: string }) {
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-4 text-center">
       <div className="text-2xl mb-2">{icon}</div>
       <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">{title}</p>
       <p className="text-sm font-semibold text-gray-900 dark:text-white">{value}</p>
+      {footnote && (
+        <p className="mt-2 text-[10px] leading-tight text-gray-400 dark:text-gray-500">{footnote}</p>
+      )}
     </div>
   );
 }
