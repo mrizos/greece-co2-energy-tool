@@ -10,6 +10,8 @@ interface NewsletterSignupProps {
 // To update: Marketing → Forms → Sign-up forms → Edit → copy iframe src URL.
 const BREVO_FORM_URL = 'https://4f23432e.sibforms.com/serve/MUIFABHd6HKhx_yO2sgiQPxxPmDEUJzcHDJvPaW-Odjbjc9tbjbuPNGhwyABtvWnHjV7bPGm-hbrSypqV78qCqMD6wWuOkziTN66WtSLPkpwIAdNxiHAB2Emm8UxVDqFJg3WQzPLCTDmQR7Vld3_rcXLd3KVS_8juAiji4yeAy3mHfJo5geJ7B2dyTiioxtNOQrv0WNvvsqA5UU6lQ==';
 
+const STORAGE_KEY = 'carbontrace_newsletter_subscribed';
+
 const T = {
   title:           { el: 'Μείνετε ενημερωμένοι', en: 'Stay up-to-date!' },
   desc:            { el: 'Ελληνικά περιβαλλοντικά νέα και facts, χωρίς spam, κατευθείαν στο email σου.', en: 'Get crucial updates on our climate change insights and data.' },
@@ -21,6 +23,7 @@ const T = {
   error:           { el: '❌ Κάτι πήγε στραβά. Δοκίμασε ξανά ή επικοινώνησε μαζί μου.', en: '❌ Something went wrong. Please try again or contact me.' },
   gdpr:            { el: 'Συμφωνώ να λαμβάνω το newsletter. Μπορώ να διαγραφώ οποτεδήποτε.', en: 'I agree to receive the newsletter. I can unsubscribe at any time.' },
   noSpam:          { el: 'Χωρίς spam, χωρίς διαφημίσεις.', en: 'No spam, no ads.' },
+  alreadySub:      { el: '✅ Είσαι ήδη εγγεγραμμένος στο newsletter!', en: '✅ You\'re already subscribed to the newsletter!' },
 };
 
 export default function NewsletterSignup({ lang, variant }: NewsletterSignupProps) {
@@ -28,6 +31,9 @@ export default function NewsletterSignup({ lang, variant }: NewsletterSignupProp
   const [email, setEmail]     = useState('');
   const [gdpr, setGdpr]       = useState(false);
   const [status, setStatus]   = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [alreadySubscribed, setAlreadySubscribed] = useState(() => {
+    try { return localStorage.getItem(STORAGE_KEY) === 'true'; } catch { return false; }
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,6 +56,8 @@ export default function NewsletterSignup({ lang, variant }: NewsletterSignupProp
       });
       // With no-cors we can't read the response status, so we optimistically show success
       setStatus('success');
+      try { localStorage.setItem(STORAGE_KEY, 'true'); } catch { /* private browsing */ }
+      setAlreadySubscribed(true);
     } catch {
       setStatus('error');
     }
@@ -59,6 +67,15 @@ export default function NewsletterSignup({ lang, variant }: NewsletterSignupProp
     return (
       <div className={`rounded-2xl p-5 bg-blue-500/10 border border-blue-500/30 text-sm text-blue-300 text-center ${variant === 'card' ? 'mt-6' : 'mt-2'}`}>
         {T.success[lang]}
+      </div>
+    );
+  }
+
+  // ── Already subscribed (localStorage) ───────────────────────────────────────
+  if (alreadySubscribed) {
+    return (
+      <div className={`rounded-2xl p-4 bg-blue-500/10 border border-blue-500/20 text-sm text-blue-300 text-center ${variant === 'card' ? 'mt-6' : 'mt-2'}`}>
+        {T.alreadySub[lang]}
       </div>
     );
   }
