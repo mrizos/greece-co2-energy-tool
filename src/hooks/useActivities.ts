@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { activities, type Activity } from '../data/activities';
 import { computeActivity, computeTotals, type ComputedActivity } from '../utils/calculations';
 
@@ -7,8 +7,26 @@ interface SelectedItem {
   quantity: number;
 }
 
+const STORAGE_KEY = 'carbontrace_selected';
+
 export function useActivities() {
-  const [selected, setSelected] = useState<SelectedItem[]>([]);
+  const [selected, setSelected] = useState<SelectedItem[]>(() => {
+    try {
+      const saved = sessionStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed: SelectedItem[] = JSON.parse(saved);
+        return parsed.filter(s => activities.some(a => a.id === s.activityId));
+      }
+    } catch { /* ignore corrupt data */ }
+    return [];
+  });
+
+  // Sync to sessionStorage on every change
+  useEffect(() => {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(selected));
+    } catch { /* storage full — ignore */ }
+  }, [selected]);
 
   const addActivity = useCallback((activityId: string) => {
     setSelected((prev) => {
