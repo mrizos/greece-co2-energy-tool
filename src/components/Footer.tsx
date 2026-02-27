@@ -214,10 +214,10 @@ export default function Footer({ lang }: FooterProps) {
               ? 'Για απορίες/επισημάνσεις, μπορείτε να στείλετε email στο '
               : 'For questions/feedback, email '}
             <a
-              href="mailto:michail.rizos@gmail.com"
+              href="mailto:mrizos@carbontrace.gr"
               className="text-terracotta hover:underline font-medium"
             >
-              michail.rizos@gmail.com
+              mrizos@carbontrace.gr
             </a>
           </p>
         </div>
