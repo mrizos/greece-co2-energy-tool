@@ -141,6 +141,16 @@ export default function Footer({ lang }: FooterProps) {
 
           {activeTab === 'changelog' && (
             <div className="text-sm text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed">
+              <div className="border-l-2 border-olive pl-4 py-1">
+                <p className="font-medium text-gray-900 dark:text-white">v2.3 — {lang === 'el' ? 'Φεβρουάριος 2026' : 'February 2026'}</p>
+                <ul className="mt-1 space-y-0.5 text-gray-500 dark:text-gray-400">
+                  <li>• {lang === 'el' ? 'Ενεργειακό μείγμα 2025: 265 g CO₂/kWh (Green Tank) — δυναμικός υπολογισμός ηλεκτρικών δραστηριοτήτων' : 'Energy mix 2025: 265 g CO₂/kWh (Green Tank) — dynamic calculation for electric activities'}</li>
+                  <li>• {lang === 'el' ? 'GHG breakdown: stacked bars CO₂ vs CH₄/N₂O με ποσοστά' : 'GHG breakdown: stacked bars CO₂ vs CH₄/N₂O with percentages'}</li>
+                  <li>• {lang === 'el' ? 'Μεγαλύτερες μπάρες γραφήματος + labels ποσότητας/μονάδας' : 'Bigger chart bars + quantity/unit labels'}</li>
+                  <li>• {lang === 'el' ? 'Μετονομασία "αγριαλίευτο" → "ελεύθερης αλιείας"' : 'Renamed "wild-caught" fish label'}</li>
+                  <li>• {lang === 'el' ? 'Πηγές & υποσημειώσεις στα Βασικά Στοιχεία (Green Tank, Climate Change Tracker, IPCC AR6)' : 'Sources & footnotes in Key Facts (Green Tank, Climate Change Tracker, IPCC AR6)'}</li>
+                </ul>
+              </div>
               <div className="border-l-2 border-terracotta pl-4 py-1">
                 <p className="font-medium text-gray-900 dark:text-white">v2.2 — {lang === 'el' ? 'Φεβρουάριος 2026' : 'February 2026'}</p>
                 <ul className="mt-1 space-y-0.5 text-gray-500 dark:text-gray-400">

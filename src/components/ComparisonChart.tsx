@@ -269,6 +269,9 @@ export default function ComparisonChart({
                             {pct > 25 && (
                               <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-white whitespace-nowrap">
                                 {label}
+                                <span className="font-normal opacity-85 ml-1">
+                                  ({Math.round(item.co2Fraction * 100)}% CO₂{pct > 45 ? ` · ${Math.round((1 - item.co2Fraction) * 100)}% ${lang === 'el' ? 'λοιπά' : 'other'}` : ''})
+                                </span>
                               </span>
                             )}
                           </div>
@@ -283,7 +286,7 @@ export default function ComparisonChart({
                     </div>
                     {pct <= 25 && (
                       <span className="text-xs font-medium text-gray-600 dark:text-gray-400 whitespace-nowrap flex-shrink-0">
-                        {label}
+                        {label}{showStacked ? ` (${Math.round(item.co2Fraction * 100)}% CO₂)` : ''}
                       </span>
                     )}
                   </div>
@@ -295,18 +298,22 @@ export default function ComparisonChart({
       )}
 
       {/* GHG Legend — only for emissions view when breakdown data exists */}
-      {isEmissions && hasGhgBreakdown && (
-        <div className="mt-3 flex items-center gap-4 text-[10px] text-gray-500 dark:text-gray-400 pl-44 sm:pl-56">
-          <span className="flex items-center gap-1">
-            <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: '#6B7280' }} />
-            CO₂
-          </span>
-          <span className="flex items-center gap-1">
-            <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: '#6B7280', opacity: 0.35 }} />
-            {lang === 'el' ? 'Λοιπά GHGs (CH₄, N₂O)' : 'Other GHGs (CH₄, N₂O)'}
-          </span>
-        </div>
-      )}
+      {isEmissions && hasGhgBreakdown && (() => {
+        const legendItem = items.find(i => i.co2Fraction < 1);
+        const legendColor = legendItem ? CATEGORY_COLORS[legendItem.category] : '#3B82F6';
+        return (
+          <div className="mt-3 flex items-center gap-4 text-[10px] text-gray-500 dark:text-gray-400 pl-44 sm:pl-56">
+            <span className="flex items-center gap-1">
+              <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: legendColor }} />
+              CO₂
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="inline-block w-3 h-3 rounded-sm" style={{ backgroundColor: legendColor, opacity: 0.35 }} />
+              {lang === 'el' ? 'Λοιπά GHGs (CH₄, N₂O)' : 'Other GHGs (CH₄, N₂O)'}
+            </span>
+          </div>
+        );
+      })()}
     </div>
   );
 

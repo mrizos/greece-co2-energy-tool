@@ -144,9 +144,17 @@ export const ftT = {
     el: '~6.1 τόνοι CO₂e/κάτοικο/χρόνο',
     en: '~6.1 tonnes CO₂e/capita/year',
   },
+  factPerCapitaFootnote: {
+    el: 'Πηγή: Climate Change Tracker, στοιχεία 2023.',
+    en: 'Source: Climate Change Tracker, 2023 data.',
+  },
   factParis: {
     el: 'Στόχος Παρισιού: <2.3 t CO₂e/κάτοικο',
     en: 'Paris target: <2.3 t CO₂e/capita',
+  },
+  factParisFootnote: {
+    el: 'Βάσει παγκόσμιου carbon budget 1.5°C (IPCC AR6), κατανεμημένου κατά κεφαλήν.',
+    en: 'Based on global 1.5°C carbon budget (IPCC AR6), per-capita allocation.',
   },
 
   // ── Shared ──

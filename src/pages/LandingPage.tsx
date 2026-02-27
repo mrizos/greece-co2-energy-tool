@@ -95,11 +95,13 @@ export default function LandingPage({ lang }: LandingPageProps) {
             icon="👤"
             title={lang === 'el' ? 'Κατά κεφαλήν εκπομπές' : 'Per capita emissions'}
             value={ftT.factPerCapita[lang]}
+            footnote={ftT.factPerCapitaFootnote[lang]}
           />
           <FactCard
             icon="🌍"
             title={lang === 'el' ? 'Στόχος 2030' : '2030 target'}
             value={ftT.factParis[lang]}
+            footnote={ftT.factParisFootnote[lang]}
           />
         </div>
 
@@ -156,10 +158,10 @@ function FactCard({ icon, title, value, footnote }: { icon: string; title: strin
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-4 text-center">
       <div className="text-2xl mb-2">{icon}</div>
-      <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">{title}</p>
-      <p className="text-sm font-semibold text-gray-900 dark:text-white">{value}</p>
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{title}</p>
+      <p className="text-base font-semibold text-gray-900 dark:text-white">{value}</p>
       {footnote && (
-        <p className="mt-2 text-[10px] leading-tight text-gray-400 dark:text-gray-500">{footnote}</p>
+        <p className="mt-2 text-[11px] leading-tight text-gray-400 dark:text-gray-500">{footnote}</p>
       )}
     </div>
   );
