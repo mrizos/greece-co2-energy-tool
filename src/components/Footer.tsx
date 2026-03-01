@@ -81,8 +81,8 @@ export default function Footer({ lang }: FooterProps) {
               <div className="text-sm text-gray-600 dark:text-gray-300 space-y-3 leading-relaxed">
                 <p>
                   {lang === 'el'
-                    ? 'Το CarbonTrace.gr είναι ένα εργαλείο που βοηθά τους Έλληνες πολίτες να κατανοήσουν το ενεργειακό τους αποτύπωμα. Σύγκρινε καθημερινές δραστηριότητες ή υπολόγισε το ετήσιο ανθρακικό σου αποτύπωμα με εξατομικευμένες προτάσεις μείωσης.'
-                    : 'CarbonTrace.gr is an open-source tool that helps Greek citizens understand their energy footprint. Compare everyday activities or calculate your annual carbon footprint with personalised reduction recommendations.'}
+                    ? 'Το CarbonTrace.gr είναι ένα εργαλείο για να κατανοήσεις το ενεργειακό σου αποτύπωμα στην Ελλάδα. Σύγκρινε καθημερινές συνήθειες, μέτρησε τον ετήσιο αντίκτυπό σου και μάθε πώς μπορείς να κάνεις τη διαφορά.'
+                    : 'CarbonTrace.gr helps you understand your energy footprint in Greece. Compare everyday habits, measure your annual impact, and learn how you can make a difference.'}
                 </p>
                 <p className="text-xs text-gray-400 dark:text-gray-500 italic">
                   {translations.disclaimer[lang]}
@@ -92,7 +92,7 @@ export default function Footer({ lang }: FooterProps) {
                 <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
                   {translations.sources[lang]}
                 </h4>
-                <ul className="text-sm text-gray-500 dark:text-gray-400 space-y-0.5">
+                <ul className="text-xs text-gray-500 dark:text-gray-400 grid grid-cols-2 gap-x-4 gap-y-0.5">
                   {sources.map((s) => (
                     <li key={s}>• {s}</li>
                   ))}
@@ -198,21 +198,35 @@ export default function Footer({ lang }: FooterProps) {
         <div className="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700">
           <p className="text-sm text-gray-600 dark:text-gray-300">
             {lang === 'el'
-              ? 'Φτιαγμένο με ❤️ για μια πιο πράσινη Ελλάδα από τον '
-              : 'Built with ❤️ for a greener Greece by '}
+              ? 'Σχεδιάστηκε από τον '
+              : 'Designed by '}
             <a
-              href="https://www.linkedin.com/in/michail-rizos-9b153711/"
+              href="https://www.linkedin.com/in/michail-rizos/"
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-navy dark:text-white hover:text-terracotta transition-colors underline"
             >
-              Michail Rizos
+              {lang === 'el' ? 'Μιχάλη Ρίζο' : 'Michail Rizos'}
             </a>
-          </p>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+            <a
+              href="https://www.linkedin.com/in/michail-rizos/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block align-middle ml-1.5 text-[#0A66C2] hover:opacity-80 transition-opacity"
+              aria-label="LinkedIn"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </a>
             {lang === 'el'
-              ? 'Για απορίες/επισημάνσεις, μπορείτε να στείλετε email στο '
-              : 'For questions/feedback, email '}
+              ? ' με στόχο μια πιο βιώσιμη Ελλάδα.'
+              : ' for a more sustainable Greece.'}
+          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+            {lang === 'el'
+              ? 'Έχεις απορίες ή προτάσεις; Στείλε email στο '
+              : 'Questions or suggestions? Email '}
             <a
               href="mailto:mrizos@carbontrace.gr"
               className="text-terracotta hover:underline font-medium"

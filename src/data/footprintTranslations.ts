@@ -99,12 +99,12 @@ export const ftT = {
 
   // ── Landing page ──
   heroTitle: {
-    el: 'Ένα μόνο BBQ εκπέμπει τόσο CO₂ όσο 65 χλμ. οδήγησης ενός βενζινοκίνητου οχήματος. Δες τι άλλο δεν γνωρίζεις.',
-    en: 'One BBQ session emits as much CO₂ as driving a petrol car for 65 km. See what else you’re missing.',
+    el: 'Το ήξερες; Ένα και μόνο BBQ ισοδυναμεί με 65 χλμ. οδήγησης βενζινοκίνητου.',
+    en: 'Did you know? A single BBQ equals 65 km of petrol car driving.',
   },
   heroSubtitle: {
-    el: 'Δύο εργαλεία για να κατανοήσεις τις εκπομπές και την κατανάλωση ενέργειας στην Ελλάδα',
-    en: 'Two tools to understand emissions and energy consumption in Greece',
+    el: 'Μάθε τον κρυφό ενεργειακό αντίκτυπο των καθημερινών σου συνηθειών και τι μπορείς να αλλάξεις.',
+    en: 'Discover the hidden energy impact of your daily habits and what you can change.',
   },
   ctaCompare: {
     el: 'Σύγκρινε Δραστηριότητες',
