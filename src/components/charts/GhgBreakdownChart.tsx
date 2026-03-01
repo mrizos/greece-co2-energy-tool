@@ -23,8 +23,8 @@ export default function GhgBreakdownChart({ lang }: Props) {
     <div className="my-4 bg-gray-50 dark:bg-slate-900/50 rounded-xl p-4 border border-gray-200 dark:border-slate-700">
       <p className="text-xs font-semibold text-gray-600 dark:text-gray-300 mb-3">
         {lang === 'el'
-          ? '🇬🇷 Ανάλυση εκπομπών ΑΘΠ κατά αέριο (2021)'
-          : '🇬🇷 GHG Emissions Breakdown by Gas (2021)'}
+          ? '🇬🇷 Ανάλυση εκπομπών ΑΘΠ κατά αέριο'
+          : '🇬🇷 GHG Emissions Breakdown by Gas'}
       </p>
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <div className="w-full sm:w-1/2" style={{ height: 200 }}>
@@ -74,8 +74,8 @@ export default function GhgBreakdownChart({ lang }: Props) {
       </div>
       <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-2 italic">
         {lang === 'el'
-          ? 'Πηγή: Emission-Index.com, στοιχεία 2021'
-          : 'Source: Emission-Index.com, 2021 data'}
+          ? 'Πηγή: Emission-Index.com / EEA'
+          : 'Source: Emission-Index.com / EEA'}
       </p>
     </div>
   );
