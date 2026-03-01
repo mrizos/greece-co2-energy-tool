@@ -28,8 +28,8 @@ const ghgTrendData = [
   { year: 2020, emissions: 69.8 },
   { year: 2021, emissions: 70.4 },
   { year: 2022, emissions: 65.3 },
-  { year: 2023, emissions: 59.2 },
-  { year: 2024, emissions: 57.0 },
+  { year: 2023, emissions: 63.2 },
+  { year: 2024, emissions: 61.3 },
 ];
 
 interface Props {
