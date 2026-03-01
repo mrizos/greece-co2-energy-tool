@@ -2,6 +2,13 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Language } from '../data/translations';
 import { articles, type Article } from '../data/articles';
+import GreeceGhgTrendChart from '../components/charts/GreeceGhgTrendChart';
+import GhgBreakdownChart from '../components/charts/GhgBreakdownChart';
+
+const ARTICLE_CHARTS: Record<string, React.FC<{ lang: Language }>> = {
+  'greece-ghg-trend': GreeceGhgTrendChart,
+  'ghg-breakdown-pie': GhgBreakdownChart,
+};
 
 interface AnalysesPageProps {
   lang: Language;
@@ -132,6 +139,10 @@ function ArticleCard({
                   <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">
                     {section.body[lang]}
                   </p>
+                  {section.chartId && ARTICLE_CHARTS[section.chartId] && (() => {
+                    const ChartComponent = ARTICLE_CHARTS[section.chartId!];
+                    return <ChartComponent lang={lang} />;
+                  })()}
                 </motion.div>
               ))}
 
@@ -140,10 +151,9 @@ function ArticleCard({
                 <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
                   {lang === 'el' ? 'Πηγές' : 'Sources'}
                 </p>
-                <ul className="text-xs text-gray-400 dark:text-gray-500 space-y-1">
+                <ul className="text-xs text-gray-400 dark:text-gray-500 space-y-1 list-none">
                   {article.sources.map((s, i) => (
                     <li key={i}>
-                      •{' '}
                       {s.url ? (
                         <a
                           href={s.url}
