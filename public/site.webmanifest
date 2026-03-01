@@ -1,0 +1,16 @@
+{
+  "name": "CarbonTrace.gr",
+  "short_name": "CarbonTrace",
+  "description": "Ενέργεια & CO₂ στην Ελλάδα",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF8F5",
+  "theme_color": "#1B2A4A",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}

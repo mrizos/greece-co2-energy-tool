@@ -4,6 +4,7 @@ import type { Language } from '../data/translations';
 import { articles, type Article } from '../data/articles';
 import GreeceGhgTrendChart from '../components/charts/GreeceGhgTrendChart';
 import GhgBreakdownChart from '../components/charts/GhgBreakdownChart';
+import PageMeta from '../components/PageMeta';
 
 const ARTICLE_CHARTS: Record<string, React.FC<{ lang: Language }>> = {
   'greece-ghg-trend': GreeceGhgTrendChart,
@@ -19,6 +20,11 @@ export default function AnalysesPage({ lang }: AnalysesPageProps) {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12">
+      <PageMeta
+        title={lang === 'el' ? 'Αναλύσεις & Insights | CarbonTrace.gr' : 'Analyses & Insights | CarbonTrace.gr'}
+        description={lang === 'el' ? 'Εμβαθύνσεις στα κλιματικά και ενεργειακά δεδομένα της Ελλάδας' : "Deep dives into Greece's climate and energy data"}
+        path="/analyses"
+      />
       {/* Page header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}

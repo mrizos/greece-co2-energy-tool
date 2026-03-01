@@ -3,6 +3,7 @@
  * Moved from App.tsx main content into its own route.
  */
 
+import PageMeta from '../components/PageMeta';
 import ActivityPicker from '../components/ActivityPicker';
 import ComparisonChart from '../components/ComparisonChart';
 import ContextPanel from '../components/ContextPanel';
@@ -32,6 +33,11 @@ export default function ComparePage({ lang, metricView }: ComparePageProps) {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-6">
+      <PageMeta
+        title={lang === 'el' ? 'Σύγκριση Δραστηριοτήτων | CarbonTrace.gr' : 'Compare Activities | CarbonTrace.gr'}
+        description={lang === 'el' ? 'Σύγκρινε τις εκπομπές CO₂ διαφορετικών καθημερινών δραστηριοτήτων στην Ελλάδα' : 'Compare CO₂ emissions of different everyday activities in Greece'}
+        path="/compare"
+      />
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left: Activity Picker */}
         <aside className="lg:col-span-4 xl:col-span-3 space-y-4">

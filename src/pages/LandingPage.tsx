@@ -4,6 +4,7 @@ import type { Language } from '../data/translations';
 import { ftT } from '../data/footprintTranslations';
 import { CONSTANTS } from '../data/constants';
 import NewsletterSignup from '../components/NewsletterSignup';
+import PageMeta from '../components/PageMeta';
 
 interface LandingPageProps {
   lang: Language;
@@ -12,6 +13,11 @@ interface LandingPageProps {
 export default function LandingPage({ lang }: LandingPageProps) {
   return (
     <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 py-12">
+      <PageMeta
+        title={lang === 'el' ? 'CarbonTrace.gr — Ενέργεια & CO₂ στην Ελλάδα' : 'CarbonTrace.gr — Energy & CO₂ in Greece'}
+        description={lang === 'el' ? 'Σύγκρινε δραστηριότητες και υπολόγισε το ανθρακικό αποτύπωμά σου στην Ελλάδα' : 'Compare activities and calculate your carbon footprint in Greece'}
+        path="/"
+      />
       {/* Hero */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}

@@ -8,6 +8,7 @@ import { calculateFootprint, calculateScenarios, getRecommendations } from '../d
 import type { Answers, FootprintResult } from '../data/footprintEngine';
 import WizardStep from '../components/calculator/WizardStep';
 import FootprintResults from '../components/calculator/FootprintResults';
+import PageMeta from '../components/PageMeta';
 
 interface CalculatorPageProps {
   lang: Language;
@@ -102,9 +103,18 @@ export default function CalculatorPage({ lang }: CalculatorPageProps) {
   }, [result, answers]);
 
   // ── Mode Selection ──
+  const pageMeta = (
+    <PageMeta
+      title={lang === 'el' ? 'Υπολογιστής Αποτυπώματος | CarbonTrace.gr' : 'Footprint Calculator | CarbonTrace.gr'}
+      description={lang === 'el' ? 'Υπολόγισε το προσωπικό σου ανθρακικό αποτύπωμα στην Ελλάδα' : 'Calculate your personal carbon footprint in Greece'}
+      path="/calculator"
+    />
+  );
+
   if (phase === 'mode-select') {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12">
+        {pageMeta}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -159,6 +169,7 @@ export default function CalculatorPage({ lang }: CalculatorPageProps) {
   if (phase === 'wizard' && currentStep) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-8">
+        {pageMeta}
         {/* Progress bar */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
@@ -238,7 +249,7 @@ export default function CalculatorPage({ lang }: CalculatorPageProps) {
   // ── Results ──
   if (phase === 'results' && result) {
     return (
-      <FootprintResults
+      <>{pageMeta}<FootprintResults
         result={result}
         scenarios={scenarios}
         recommendations={recommendations}
@@ -248,7 +259,7 @@ export default function CalculatorPage({ lang }: CalculatorPageProps) {
           setPhase('wizard');
           setCurrentStepIndex(totalSteps - 1);
         }}
-      />
+      /></>
     );
   }
 
